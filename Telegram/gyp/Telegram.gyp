@@ -80,18 +80,17 @@
 
     'defines': [
       'AL_LIBTYPE_STATIC',
-      '<!@(python -c "for s in \'<(travis_defines)\'.split(\',\'): print(s)")',
+      '__STDC_FORMAT_MACROS',
+      'TDESKTOP_DISABLE_AUTOUPDATE',
+      'TDESKTOP_DISABLE_REGISTER_CUSTOM_SCHEME',
+      'TDESKTOP_DISABLE_DESKTOP_FILE_GENERATION',
+      'TDESKTOP_DISABLE_CRASH_REPORTS',
     ],
 
     'include_dirs': [
       '<(src_loc)',
       '<(SHARED_INTERMEDIATE_DIR)',
       '<(libs_loc)/breakpad/src',
-      '<(libs_loc)/lzma/C',
-      '<(libs_loc)/libexif-0.6.20',
-      '<(libs_loc)/zlib-1.2.8',
-      '<(libs_loc)/ffmpeg',
-      '<(libs_loc)/openal-soft/include',
       '<(minizip_loc)',
       '<(sp_media_key_tap_loc)',
     ],
