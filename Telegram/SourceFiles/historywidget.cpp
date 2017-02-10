@@ -189,7 +189,7 @@ namespace {
 // is applied once for blocks list in a history and once for items list in the found block
 template <bool TopToBottom, typename T>
 int binarySearchBlocksOrItems(const T &list, int edge) {
-	auto start = 0, end = list.size();
+	auto start = 0; auto end = list.size();
 	while (end - start > 1) {
 		auto middle = (start + end) / 2;
 		auto top = list[middle]->y;
