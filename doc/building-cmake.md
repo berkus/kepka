@@ -1,3 +1,6 @@
+`cmake -G Ninja .. -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5`
+
+
 ##Build instructions for GYP/CMake under Ubuntu 12.04
 
 ###Prepare
