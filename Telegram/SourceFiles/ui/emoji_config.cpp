@@ -40,6 +40,7 @@ void emojiInit() {
 		case dbisOneAndQuarter: EIndex = 1; break;
 		case dbisOneAndHalf: EIndex = 2; break;
 		case dbisTwo: EIndex = 3; break;
+		case dbisAuto: case dbisScaleCount: assert(false); // temp
 	};
 	ESize = EmojiSizes[EIndex];
 	EName = EmojiNames[EIndex];
@@ -3653,6 +3654,7 @@ int emojiPackCount(DBIEmojiTab tab) {
 		case dbietTravel  : return 115;
 		case dbietObjects : return 178;
 		case dbietSymbols : return 516;
+		case dbietStickers: assert(false); // temp
 	};
 	return 0;
 }
@@ -3660,6 +3662,7 @@ int emojiPackCount(DBIEmojiTab tab) {
 EmojiPack emojiPack(DBIEmojiTab tab) {
 	switch (tab) {
 
+	case dbietRecent: case dbietStickers: assert(false); // temp
 	case dbietPeople: {
 		static QVector<EmojiPtr> vPeople;
 		if (vPeople.isEmpty()) {

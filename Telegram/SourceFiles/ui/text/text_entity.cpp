@@ -1411,6 +1411,7 @@ MTPVector<MTPMessageEntity> linksToMTP(const EntitiesInText &links, bool sending
 
 		auto offset = MTP_int(link.offset()), length = MTP_int(link.length());
 		switch (link.type()) {
+		case EntityInTextInvalid: assert(false); // temp
 		case EntityInTextUrl: v.push_back(MTP_messageEntityUrl(offset, length)); break;
 		case EntityInTextCustomUrl: v.push_back(MTP_messageEntityTextUrl(offset, length, MTP_string(link.data()))); break;
 		case EntityInTextEmail: v.push_back(MTP_messageEntityEmail(offset, length)); break;

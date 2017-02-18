@@ -602,6 +602,7 @@ public:
 					const TextLinkData &link(links[lnkIndex - maxLnkIndex - 1]);
 					ClickHandlerPtr handler;
 					switch (link.type) {
+					case EntityInTextInvalid: case EntityInTextBold: case EntityInTextItalic: assert(false); // temp
 					case EntityInTextCustomUrl: handler.reset(new HiddenUrlClickHandler(link.data)); break;
 					case EntityInTextEmail:
 					case EntityInTextUrl: handler.reset(new UrlClickHandler(link.data, link.displayStatus == LinkDisplayedFull)); break;
