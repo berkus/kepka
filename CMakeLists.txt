@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.5)
 project(tdesktop)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cotire/CMake")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cotire/CMake;${PROJECT_SOURCE_DIR}/modules/")
 include(cotire)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -12,6 +12,10 @@ find_package(OpenAL REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(OpenSSL REQUIRED)
 find_package(LibLZMA REQUIRED)
+find_package(GTK3 3.0 REQUIRED gtk)
+
+include_directories(${GTK3_INCLUDE_DIRS})
+link_directories(${GTK3_LIBRARY_DIRS})
 
 #find_package(PortAudio REQUIRED)
 #find_package(Opus REQUIRED)
