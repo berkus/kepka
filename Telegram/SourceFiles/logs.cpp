@@ -23,7 +23,6 @@ Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 
 #include <signal.h>
 #include <new>
-
 #include "pspecific.h"
 
 #ifndef TDESKTOP_DISABLE_CRASH_REPORTS
