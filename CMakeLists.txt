@@ -5,9 +5,21 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cotire/CMake;${PROJECT_SOURCE_DIR}/mo
 include(cotire)
 include(CTest)
 
-if (CMAKE_VERSION VERSION_GREATER 3.9)
+if (CMAKE_VERSION VERSION_GREATER_EQUAL 3.10)
     cmake_policy(SET CMP0071 NEW)
 endif()
+
+if (UNIX AND NOT APPLE)
+    set(LINUX 1)
+endif()
+
+function(set_flag_if_supported target shortname flag)
+    include(CheckCXXCompilerFlag)
+    check_cxx_compiler_flag(${flag} ${shortname}_SUPPORTED)
+    if (${shortname}_SUPPORTED)
+        target_compile_options(${target} PRIVATE ${flag})
+    endif()
+endfunction()
 
 ##================================================
 ## Configure packages
@@ -27,9 +39,17 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# Needs OpenAL-SOFT
-# Install via `brew install openal-soft` and configure with cmake call from README.md
-find_package(OpenAL REQUIRED NO_MODULE)
+if (LINUX)
+    find_package(OpenAL REQUIRED)
+    find_package(ALSA)
+    find_package(PulseAudio)
+else(LINUX)
+    # Needs OpenAL-SOFT
+    # Install via `brew install openal-soft` and configure with cmake call from README.md
+    find_package(OpenAL REQUIRED NO_MODULE)
+    set(OPENAL_LIBRARIES OpenAL::OpenAL)
+endif(LINUX)
+
 find_package(ZLIB REQUIRED)
 find_package(FFmpeg REQUIRED)
 find_package(Opus REQUIRED)

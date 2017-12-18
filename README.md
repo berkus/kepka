@@ -4,7 +4,16 @@ This is the complete source code and the build instructions for the alpha versio
 
 ## Build instructions
 
-Must have OpenAL-soft and Qt5 installed. Provide paths to them in CMAKE_PREFIX_PATH variable when configuring.
+What you need to have installed:
+
+* Qt 5.9+ (with private modules, like qtbase5-private-dev)
+* OpenSSL (conan installs this if you use conan)
+* OpenAL-soft
+* FFmpeg with swscale and swresample libs
+* zlib
+* opus (libopus-dev)
+
+Provide paths to OpenAL-soft and Qt5 in CMAKE_PREFIX_PATH variable when configuring.
 
     ccache -o sloppiness=pch_defines,time_macros
     mkdir _conan_build_

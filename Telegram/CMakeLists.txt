@@ -1,5 +1,5 @@
 # defines
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+if (LINUX)
     if (CMAKE_SIZEOF_VOID_P EQUAL 8)
         add_definitions(-DQ_OS_LINUX64)
     else()
@@ -13,6 +13,8 @@ endif()
 
 include_directories(SourceFiles)
 add_subdirectory(SourceFiles/codegen)
+
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/styles)
 
 #-w<(PRODUCT_DIR)/../.. -- wtf is that
 add_custom_command(
@@ -554,7 +556,7 @@ include_directories(ThirdParty/GSL/include ThirdParty/variant/include
 include_directories(SourceFiles SourceFiles/core)
 
 include_directories(${OPENAL_INCLUDE_DIRS} ${ZLIB_INCLUDE_DIRS} ${OPENSSL_INCLUDE_DIR}
-    ${OPUS_INCLUDE_DIR} ${FFMPEG_INCLUDE_DIRS})
+    ${OPUS_INCLUDE_DIR} ${FFMPEG_INCLUDE_DIRS} ${ALSA_INCLUDE_DIRS} ${PULSEAUDIO_INCLUDE_DIR})
 
 add_subdirectory(ThirdParty/libtgvoip)
 
@@ -578,7 +580,6 @@ add_definitions(-DTDESKTOP_DISABLE_GTK_INTEGRATION) # Linux only
 
 if (LINUX)
     add_definitions(-D_REENTRANT)
-    add_definitions(-DQT_PLUGIN)
 endif()
 
 # TODO check if needs libexif in deps
@@ -621,7 +622,7 @@ endif()
 
 # Disable a single annoying warning about c++17
 if(NOT WIN32)
-    target_compile_options(Telegram PRIVATE -Wno-c++1z-extensions)
+    set_flag_if_supported(Telegram WNCE -Wno-c++1z-extensions)
 endif()
 
 # Enable C++14 support for msvc (@todo this should be done in cmake - see ver 3.10 or above)
@@ -629,7 +630,6 @@ if(WIN32)
     target_compile_options(Telegram PRIVATE
         /std:c++14
         /EHsc   # Catch C++ exceptions only, extern C functions never throw a C++ exception.
-        /WX     # Treat warnings as errors.
     )
 endif()
 
@@ -641,7 +641,7 @@ target_link_libraries(Telegram
     Qt5::Network
     Qt5::GuiPrivate
     tgvoip
-    OpenAL::OpenAL
+    ${OPENAL_LIBRARIES}
     ${FFMPEG_LIBRARIES}
     ${ZLIB_LIBRARIES}
     ${SWRESAMPLE_LIBRARIES}
@@ -690,6 +690,10 @@ if(WIN32)
         winmm imm32 ws2_32 kernel32 user32 gdi32 winspool comdlg32 advapi32 shell32 ole32
         oleaut32 uuid odbc32 odbccp32 Shlwapi Iphlpapi Gdiplus Strmiids
     )
+endif()
+
+if (LINUX)
+    target_link_libraries(Telegram ${ALSA_LIBRARIES} ${PULSEAUDIO_LIBRARIES})
 endif()
 
 set_target_properties(Telegram
