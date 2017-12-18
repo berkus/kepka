@@ -641,7 +641,7 @@ target_link_libraries(Telegram
     Qt5::Network
     Qt5::GuiPrivate
     tgvoip
-    ${OPENAL_LIBRARIES}
+    ${OPENAL_LIBRARY}
     ${FFMPEG_LIBRARIES}
     ${ZLIB_LIBRARIES}
     ${SWRESAMPLE_LIBRARIES}
@@ -693,7 +693,7 @@ if(WIN32)
 endif()
 
 if (LINUX)
-    target_link_libraries(Telegram ${ALSA_LIBRARIES} ${PULSEAUDIO_LIBRARIES})
+    target_link_libraries(Telegram Qt5::DBus dl pthread ${ALSA_LIBRARIES} ${PULSEAUDIO_LIBRARIES})
 endif()
 
 set_target_properties(Telegram

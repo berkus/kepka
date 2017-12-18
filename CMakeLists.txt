@@ -43,11 +43,12 @@ if (LINUX)
     find_package(OpenAL REQUIRED)
     find_package(ALSA)
     find_package(PulseAudio)
+    find_package(Qt5 COMPONENTS DBus)
 else(LINUX)
     # Needs OpenAL-SOFT
     # Install via `brew install openal-soft` and configure with cmake call from README.md
     find_package(OpenAL REQUIRED NO_MODULE)
-    set(OPENAL_LIBRARIES OpenAL::OpenAL)
+    set(OPENAL_LIBRARY OpenAL::OpenAL)
 endif(LINUX)
 
 find_package(ZLIB REQUIRED)
