@@ -6500,7 +6500,7 @@ void HistoryWidget::paintEditHeader(Painter &p, const QRect &rect, int left, int
 	if (editTimeLeft < 2) {
 		editTimeLeftText = qsl("0:00");
 	} else if (editTimeLeft > kDisplayEditTimeWarningMs) {
-		updateIn = static_cast<int>(qMin(editTimeLeft - kDisplayEditTimeWarningMs, int64_t(kFullDayInMs)));
+		updateIn = static_cast<int>(qMin(static_cast<int64_t>(editTimeLeft - kDisplayEditTimeWarningMs), int64_t(kFullDayInMs)));
 	} else {
 		updateIn = static_cast<int>(editTimeLeft % 1000);
 		if (!updateIn) {

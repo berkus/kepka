@@ -280,10 +280,10 @@ FORCE_INLINE Shifted operator*(ShiftedMultiplier multiplier, Shifted shifted) {
 
 FORCE_INLINE Shifted shifted(uint32_t components) {
 	auto wide = static_cast<uint64_t>(components);
-	return (wide & 0x00000000000000FFULL)
-		| ((wide & 0x000000000000FF00ULL) << 8)
-		| ((wide & 0x0000000000FF0000ULL) << 16)
-		| ((wide & 0x00000000FF000000ULL) << 24);
+	return (wide & static_cast<uint64_t>(0x00000000000000FFULL))
+		| ((wide & static_cast<uint64_t>(0x000000000000FF00ULL)) << 8)
+		| ((wide & static_cast<uint64_t>(0x0000000000FF0000ULL)) << 16)
+		| ((wide & static_cast<uint64_t>(0x00000000FF000000ULL)) << 24);
 }
 
 FORCE_INLINE uint32_t unshifted(Shifted components) {
@@ -294,7 +294,7 @@ FORCE_INLINE uint32_t unshifted(Shifted components) {
 }
 
 FORCE_INLINE Shifted reshifted(Shifted components) {
-	return (components.value >> 8) & 0x00FF00FF00FF00FFULL;
+	return (components.value >> 8) & static_cast<uint64_t>(0x00FF00FF00FF00FFULL);
 }
 
 FORCE_INLINE Shifted shifted(QColor color) {
